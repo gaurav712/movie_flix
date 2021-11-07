@@ -1,21 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+
+import Home from './components/Home';
+import MovieDetails from './components/MovieDetails';
 
 export default function App() {
+  
+  const [currentScreen, setCurrentScreen] = React.useState('Home');
+  const [movie, setMovie] = React.useState();
+
+  /* To save the current navigation state for Home */
+  const [currentSection, setCurrentSection] = React.useState('nowPlaying');
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      {currentScreen === 'Home' ? (
+        <Home
+          navigation={setCurrentScreen}
+          movie={setMovie}
+          currentSection={currentSection}
+          setCurrentSection={setCurrentSection}
+        />
+      ) : (
+        <MovieDetails navigation={setCurrentScreen} movie={movie} />
+      )}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
